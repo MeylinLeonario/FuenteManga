@@ -1,4 +1,4 @@
-package Clases;
+package cl.ucn.disc.poo.fuentemanga.Clases;
 
 public class Usuario {
     private Rol rol;

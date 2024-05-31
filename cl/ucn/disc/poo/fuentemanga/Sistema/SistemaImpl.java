@@ -1,13 +1,12 @@
-package Sistema;
+package cl.ucn.disc.poo.fuentemanga.Sistema;
 
-
-import Clases.Usuario;
-import Clases.Mangas;
-import Clases.Administrador;
-import Clases.Comentario;
-import Clases.Compras;
-import Clases.Comments;
-import Clases.Rol;
+import cl.ucn.disc.poo.fuentemanga.Clases.Usuario;
+import cl.ucn.disc.poo.fuentemanga.Clases.Mangas;
+import cl.ucn.disc.poo.fuentemanga.Clases.Administrador;
+import cl.ucn.disc.poo.fuentemanga.Clases.Comentario;
+import cl.ucn.disc.poo.fuentemanga.Clases.Compras;
+import cl.ucn.disc.poo.fuentemanga.Clases.Comments;
+import cl.ucn.disc.poo.fuentemanga.Clases.Rol;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,7 +123,6 @@ public class SistemaImpl implements Sistema {
             for (int i = 0; i < cantidadComentarios; i++) {
                 String[] comentarioYRating = comentarioGlobales[i].split(";");
                 String comment = comentarioYRating[0];
-                System.out.println(comment);
                 double rating = Double.parseDouble(comentarioYRating[1]);
                 subComentarios[i] = new Comentario(comment, rating);
 

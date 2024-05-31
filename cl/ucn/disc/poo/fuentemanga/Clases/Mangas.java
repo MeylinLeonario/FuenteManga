@@ -1,4 +1,4 @@
-package Clases;
+package cl.ucn.disc.poo.fuentemanga.Clases;
 
 public class Mangas {
     private String isbn;

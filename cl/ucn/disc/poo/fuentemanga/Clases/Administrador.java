@@ -1,6 +1,6 @@
-package Clases;
+package cl.ucn.disc.poo.fuentemanga.Clases;
 
-public class Administrador extends Usuario{
+public class Administrador extends Usuario {
     private String administradorId;
 
     public Administrador(Rol rol, String username, int id, String password, String administradorId) {

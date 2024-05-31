@@ -1,4 +1,4 @@
-import Sistema.SistemaImpl;
+import cl.ucn.disc.poo.fuentemanga.Sistema.SistemaImpl;
 
 public class Main {
     public static void main(String[] args) {
