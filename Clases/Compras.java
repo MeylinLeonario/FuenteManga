@@ -2,12 +2,12 @@ package Clases;
 
 public class Compras {
     private String isbn;
-    private String usernameId;
+    private int usernameId;
     private String estado;
     private String fecha;
     private int cantidad;
 
-    public Compras(String isbn, String usernameId, String estado, String fecha, int cantidad) {
+    public Compras(String isbn, int usernameId, String estado, String fecha, int cantidad) {
         this.isbn = isbn;
         this.usernameId = usernameId;
         this.estado = estado;
@@ -19,7 +19,7 @@ public class Compras {
         return isbn;
     }
 
-    public String getUsernameId() {
+    public int getUsernameId() {
         return usernameId;
     }
 
