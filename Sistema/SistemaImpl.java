@@ -16,11 +16,7 @@ import java.util.Scanner;
 import edu.princeton.cs.stdlib.In;
 
 public class SistemaImpl implements Sistema{
-    private Comentario commentarios;
-
-    public SistemaImpl() {
-        this.commentarios = new Comentario();
-    }
+   
     public void leerUsuario(){
 
         Usuario[] usuarios = new Usuario[6];
@@ -102,21 +98,28 @@ public class SistemaImpl implements Sistema{
         }
     }
     public void leerComentario(){
-        Comentario[] comentarios = new Comentario[3];
+        List<Comments> comentariosList = new ArrayList<>();
         In in = new In("comments.csv");
-        int tamanio = 0;
+
         String linea = in.readLine();
 
         while(linea != null){
             String[] campos = linea.split(";");
             String isbn = campos[0];
             int cantidadComentarios = Integer.parseInt(campos[1]);
+            String[] comentarioPuntacion = campos[2].split("#");
+
+            Comentario[] subComentarios = new Comentario[cantidadComentarios];
 
             for (int i = 0; i < cantidadComentarios; i++){
-                String comment = campos[2];
-                double rating = Double.parseDouble(campos[3]);
-
+                String[] comentarioYRating = comentarioPuntacion[i].split(";");
+                String comment = comentarioYRating[2];
+                double rating = Double.parseDouble(comentarioYRating[3]);
+                subComentarios[i] = new Comentario(comment,rating);
             }
+            Comments comments = new Comments(isbn,cantidadComentarios,subComentarios);
+            comentariosList.add(comments);
+            linea = in.readLine();
         }
 
     }
@@ -147,6 +150,7 @@ public class SistemaImpl implements Sistema{
             System.out.println("Inicio de sesión como cliente");
             System.out.println("nombre de usuario:");
             String nombreUsuario = scanner.nextLine();
+
 
 
         }

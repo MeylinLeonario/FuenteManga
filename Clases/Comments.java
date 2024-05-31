@@ -5,9 +5,9 @@ import java.util.List;
 public class Comments {
     private String isbn;
     private int cantidad_comentarios;
-    private List<Comentario> subComentarios;
+    private Comentario[] subComentarios;
 
-    public Comments(String isbn, int cantidad_comentarios, List<Comentario> subComentarios) {
+    public Comments(String isbn, int cantidad_comentarios, Comentario[] subComentarios) {
         this.isbn = isbn;
         this.cantidad_comentarios = cantidad_comentarios;
         this.subComentarios = subComentarios;
@@ -21,11 +21,8 @@ public class Comments {
         return cantidad_comentarios;
     }
 
-    public List<Comentario> getComentarios() {
+    public Comentario[] getComentarios() {
         return subComentarios;
     }
 
-    public void setSubComentarios(List<Comentario> subComentarios) {
-        this.subComentarios = subComentarios;
-    }
 }
