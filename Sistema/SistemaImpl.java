@@ -151,4 +151,24 @@ public class SistemaImpl implements Sistema{
 
         }
     }
+
+    @Override
+    public void busquedaManga(String titulo) {
+
+    }
+
+    @Override
+    public void productosComprados() {
+
+    }
+
+    @Override
+    public void valorarUnManga(String isbn) {
+
+    }
+
+    @Override
+    public void visualizarComentarios(String isbn) {
+
+    }
 }
