@@ -14,9 +14,11 @@ import java.util.List;
 import edu.princeton.cs.stdlib.In;
 
 public class SistemaImpl implements Sistema{
-    public List<Comentario> comentariooos;
+    private Comentario commentarios;
 
-
+    public SistemaImpl() {
+        this.commentarios = new Comentario();
+    }
     public void leerUsuario(){
 
         Usuario[] usuarios = new Usuario[6];
@@ -101,32 +103,18 @@ public class SistemaImpl implements Sistema{
         Comentario[] comentarios = new Comentario[3];
         In in = new In("comments.csv");
         int tamanio = 0;
-        String linea = in.readLine() +1;
+        String linea = in.readLine();
 
-        while(linea != null) {
-
+        while(linea != null){
             String[] campos = linea.split(";");
-
             String isbn = campos[0];
             int cantidadComentarios = Integer.parseInt(campos[1]);
 
-            for (int i = 0; i < cantidadComentarios; i++) {
-                String[] campus = linea.split(";");
-                String comentus = campus[2];
-                double rating = Double.parseDouble(campus[3]);
-
-                Comments comment = new Comments(isbn, cantidadComentarios, comentariooos.add(comentus, rating));
-                comentarios[tamanio] = comentario;
-                tamanio++;
+            for (int i = 0; i < cantidadComentarios; i++){
+                String comment = campos[2];
+                double rating = Double.parseDouble(campos[3]);
 
             }
-            linea = in.readLine();
         }
     }
-
-    public void menu(){
-        System.out.println("Hola");
-    }
-
-
 }
