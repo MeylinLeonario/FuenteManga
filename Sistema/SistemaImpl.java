@@ -17,6 +17,8 @@ import edu.princeton.cs.stdlib.In;
 
 public class SistemaImpl implements Sistema {
     Scanner scanner = new Scanner(System.in);
+    private List<Administrador> administradores;
+
     private Comentario commentarios;
 
     public void leerUsuario() {
@@ -39,6 +41,7 @@ public class SistemaImpl implements Sistema {
 
             if (rol == "ADMINISTRADOR") {
                 Administrador administrador = new Administrador(Rol.valueOf(rol), username, id, password, administradorId);
+                administradores.add(administrador);
                 usuarios[tamanio] = administrador;
             } else if (rol == "USUARIO") {
                 Usuario usuario = new Usuario(Rol.valueOf(rol), username, id, password);
@@ -125,12 +128,11 @@ public class SistemaImpl implements Sistema {
             Comments comments = new Comments(isbn, cantidadComentarios, subComentarios);
             comentariosList.add(comments);
             linea = in.readLine();
-
+        }
+        for (int j = 0; j < comentariosList.size(); j++){
+            System.out.println(comentariosList.get(j).getIsbn());
         }
     }
-
-
-
     public void menumenu(){
         System.out.println("<------{TIPO DE SESION}------>");
         System.out.println("[1] Administrador");
@@ -158,12 +160,13 @@ public class SistemaImpl implements Sistema {
         System.out.println("Contraseña: ");
         int contraseña = scanner.nextInt();
         for(int i= 0; i< 10; i++){
-            if (nombreUsuario == ); //Crear una lista para cada lectura de archivos
+            if (nombreUsuario == null); //Crear una lista para cada lectura de archivos
 
         }
     }
     public void menu() {
         menumenu();
+        leerComentario();
         int opcion = scanner.nextInt();
 
         switch(opcion){
