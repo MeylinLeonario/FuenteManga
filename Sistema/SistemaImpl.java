@@ -15,11 +15,11 @@ import java.util.Scanner;
 
 import edu.princeton.cs.stdlib.In;
 
-public class SistemaImpl implements Sistema{
+public class SistemaImpl implements Sistema {
     Scanner scanner = new Scanner(System.in);
     private Comentario commentarios;
 
-    public void leerUsuario(){
+    public void leerUsuario() {
 
         Usuario[] usuarios = new Usuario[6];
 
@@ -27,7 +27,7 @@ public class SistemaImpl implements Sistema{
         int tamanio = 0;
         String linea = in.readLine();
 
-        while (linea != null){
+        while (linea != null) {
 
             String[] campos = linea.split(",");
 
@@ -37,19 +37,19 @@ public class SistemaImpl implements Sistema{
             String password = campos[4];
             String administradorId = campos[5];
 
-            if (rol == "ADMINISTRADOR"){
+            if (rol == "ADMINISTRADOR") {
                 Administrador administrador = new Administrador(Rol.valueOf(rol), username, id, password, administradorId);
                 usuarios[tamanio] = administrador;
-            }
-            else if (rol == "USUARIO"){
-                Usuario usuario = new Usuario(Rol.valueOf(rol),username,id,password);
+            } else if (rol == "USUARIO") {
+                Usuario usuario = new Usuario(Rol.valueOf(rol), username, id, password);
                 usuarios[tamanio] = usuario;
             }
             tamanio++;
             linea = in.readLine();
         }
     }
-    public void leerManga(){
+
+    public void leerManga() {
 
         Mangas[] mangas = new Mangas[5];
 
@@ -57,7 +57,7 @@ public class SistemaImpl implements Sistema{
         int tamanio = 0;
         String linea = in.readLine();
 
-        while(linea != null){
+        while (linea != null) {
 
             String[] campos = linea.split(";");
 
@@ -67,14 +67,15 @@ public class SistemaImpl implements Sistema{
             String descripcion = campos[3];
             int precio = Integer.parseInt(campos[4]);
 
-            Mangas manga = new Mangas(isbn,nombre,stock,descripcion,precio);
+            Mangas manga = new Mangas(isbn, nombre, stock, descripcion, precio);
             mangas[tamanio] = manga;
             tamanio++;
             linea = in.readLine();
         }
 
     }
-    public void leerCompra(){
+
+    public void leerCompra() {
 
         Compras[] compras = new Compras[5];
 
@@ -82,7 +83,7 @@ public class SistemaImpl implements Sistema{
         int tamanio = 0;
         String linea = in.readLine();
 
-        while(linea != null){
+        while (linea != null) {
 
             String[] campos = linea.split(",");
 
@@ -92,35 +93,43 @@ public class SistemaImpl implements Sistema{
             String fecha = campos[3];
             int cantidad = Integer.parseInt(campos[4]);
 
-            Compras compra = new Compras(isbn,usernameId,estado,fecha,cantidad);
+            Compras compra = new Compras(isbn, usernameId, estado, fecha, cantidad);
             compras[tamanio] = compra;
             tamanio++;
             linea = in.readLine();
 
         }
     }
-    /*
-    public void leerComentario(){
+
+    public void leerComentario() {
         Comentario[] comentarios = new Comentario[3];
+        List<Comments> comentariosList = new ArrayList<>();
         In in = new In("comments.csv");
         int tamanio = 0;
+
         String linea = in.readLine();
 
-        while(linea != null){
+        while (linea != null) {
             String[] campos = linea.split(";");
             String isbn = campos[0];
             int cantidadComentarios = Integer.parseInt(campos[1]);
+            String[] comentarioGlobales = campos[2].split("#");
 
-            for (int i = 0; i < cantidadComentarios; i++){
-                String[] campus = linea.split("#");
-                String comment = campus[0];
-                double rating = Double.parseDouble(campus[1]);
-                //Hay que agregarlos a un List(comment, rating)
+            Comentario[] subComentarios = new Comentario[cantidadComentarios];
+            for (int i = 0; i < cantidadComentarios; i++) {
+                String[] comentarioYRating = comentarioGlobales[i].split(";");
+                String comment = comentarioYRating[2];
+                double rating = Double.parseDouble(comentarioYRating[3]);
+                subComentarios[i] = new Comentario(comment, rating);
             }
-        }
+            Comments comments = new Comments(isbn, cantidadComentarios, subComentarios);
+            comentariosList.add(comments);
+            linea = in.readLine();
 
+        }
     }
-    */
+
+
 
     public void menumenu(){
         System.out.println("<------{TIPO DE SESION}------>");
