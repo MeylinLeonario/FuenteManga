@@ -121,9 +121,16 @@ public class SistemaImpl implements Sistema {
             Comentario[] subComentarios = new Comentario[cantidadComentarios];
             for (int i = 0; i < cantidadComentarios; i++) {
                 String[] comentarioYRating = comentarioGlobales[i].split(";");
-                String comment = comentarioYRating[2];
-                double rating = Double.parseDouble(comentarioYRating[3]);
-                subComentarios[i] = new Comentario(comment, rating);
+                if(subComentarios.length == 0){
+                    System.out.println("No hay comentarios");
+                }else{
+                    String comment = comentarioYRating[0];
+                    System.out.println(comment);
+                    double rating = Double.parseDouble(comentarioYRating[1]);
+                    System.out.println(rating);
+                    subComentarios[i] = new Comentario(comment, rating);
+                }
+
             }
             Comments comments = new Comments(isbn, cantidadComentarios, subComentarios);
             comentariosList.add(comments);
