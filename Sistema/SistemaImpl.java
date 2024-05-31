@@ -18,9 +18,6 @@ import edu.princeton.cs.stdlib.In;
 public class SistemaImpl implements Sistema{
     private Comentario commentarios;
 
-    public SistemaImpl() {
-        this.commentarios = new Comentario();
-    }
     public void leerUsuario(){
 
         Usuario[] usuarios = new Usuario[6];
@@ -101,6 +98,7 @@ public class SistemaImpl implements Sistema{
 
         }
     }
+    /*
     public void leerComentario(){
         Comentario[] comentarios = new Comentario[3];
         In in = new In("comments.csv");
@@ -113,13 +111,15 @@ public class SistemaImpl implements Sistema{
             int cantidadComentarios = Integer.parseInt(campos[1]);
 
             for (int i = 0; i < cantidadComentarios; i++){
-                String comment = campos[2];
-                double rating = Double.parseDouble(campos[3]);
-
+                String[] campus = linea.split("#");
+                String comment = campus[0];
+                double rating = Double.parseDouble(campus[1]);
+                //Hay que agregarlos a un List(comment, rating)
             }
         }
 
     }
+    */
     public void menu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("<------{Inicio de Sesión}------>");
