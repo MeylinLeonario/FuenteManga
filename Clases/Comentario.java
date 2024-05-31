@@ -7,5 +7,12 @@ public class Comentario {
         this.comment = comment;
         this.rating = rating;
     }
-    
+
+    public String getComentario() {
+        return comment;
+    }
+
+    public double getRating() {
+        return rating;
+    }
 }

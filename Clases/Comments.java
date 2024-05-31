@@ -1,7 +1,5 @@
 package Clases;
 
-import java.util.List;
-
 public class Comments {
     private String isbn;
     private int cantidadComentarios;
@@ -25,4 +23,11 @@ public class Comments {
         return subComentarios;
     }
 
+    public int getCantidadComentarios() {
+        return cantidadComentarios;
+    }
+
+    public Comentario[] getSubComentarios() {
+        return subComentarios;
+    }
 }

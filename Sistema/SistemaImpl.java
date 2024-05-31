@@ -10,10 +10,12 @@ import Clases.Comments;
 import Clases.Rol;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 import edu.princeton.cs.stdlib.In;
+import org.w3c.dom.ls.LSOutput;
 
 public class SistemaImpl implements Sistema {
     Scanner scanner = new Scanner(System.in);
@@ -105,41 +107,36 @@ public class SistemaImpl implements Sistema {
     }
 
     public void leerComentario() {
-        Comentario[] comentarios = new Comentario[3];
         List<Comments> comentariosList = new ArrayList<>();
         In in = new In("comments.csv");
-        int tamanio = 0;
-
         String linea = in.readLine();
 
-        while (linea != null) {
-            String[] campos = linea.split(";");
+        while ((linea = in.readLine()) != null) {
+            String[] campos = linea.split(":");
             String isbn = campos[0];
             int cantidadComentarios = Integer.parseInt(campos[1]);
-            String[] comentarioGlobales = campos[2].split("#");
+            String comentarioValor = campos[2];
+            comentarioValor = comentarioValor.substring(1, comentarioValor.length()-1);
+
+            String[] comentarioGlobales = comentarioValor.split("#");
 
             Comentario[] subComentarios = new Comentario[cantidadComentarios];
             for (int i = 0; i < cantidadComentarios; i++) {
                 String[] comentarioYRating = comentarioGlobales[i].split(";");
-                if(subComentarios.length == 0){
-                    System.out.println("No hay comentarios");
-                }else{
-                    String comment = comentarioYRating[0];
-                    System.out.println(comment);
-                    double rating = Double.parseDouble(comentarioYRating[1]);
-                    System.out.println(rating);
-                    subComentarios[i] = new Comentario(comment, rating);
-                }
+                String comment = comentarioYRating[0];
+                System.out.println(comment);
+                double rating = Double.parseDouble(comentarioYRating[1]);
+                subComentarios[i] = new Comentario(comment, rating);
 
             }
             Comments comments = new Comments(isbn, cantidadComentarios, subComentarios);
             comentariosList.add(comments);
             linea = in.readLine();
+
         }
-        for (int j = 0; j < comentariosList.size(); j++){
-            System.out.println(comentariosList.get(j).getIsbn());
-        }
+
     }
+
     public void menumenu(){
         System.out.println("<------{TIPO DE SESION}------>");
         System.out.println("[1] Administrador");
