@@ -11,6 +11,8 @@ import Clases.Rol;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import edu.princeton.cs.stdlib.In;
 
 public class SistemaImpl implements Sistema{
@@ -115,6 +117,38 @@ public class SistemaImpl implements Sistema{
                 double rating = Double.parseDouble(campos[3]);
 
             }
+        }
+
+    }
+    public void menu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("<------{Inicio de Sesión}------>");
+        System.out.println("1. Administrador");
+        System.out.println("2. Usuario");
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+
+        if (opcion == 1) {
+            System.out.println("<------{Inicio de Sesión}------>");
+            System.out.println("Inicio de sesión como administrador");
+            System.out.println("Id-Administrador:");
+            String administradorId = scanner.nextLine();
+            System.out.println("Nombre de Usuario: ");
+            String nombreUsuario = scanner.nextLine();
+            System.out.println("Contraseña:");
+            String password = scanner.nextLine();
+            Rol rol = Rol.ADMINISTRADOR;
+            int id = Integer.parseInt(administradorId);
+            Administrador administrador = new Administrador(rol,nombreUsuario,id,password,administradorId);
+            System.out.println("Bienvenido, " + administradorId);
+
+        }else if (opcion == 2){
+            System.out.println("<------{Inicio de Sesión}------>");
+            System.out.println("Inicio de sesión como cliente");
+            System.out.println("nombre de usuario:");
+            String nombreUsuario = scanner.nextLine();
+
+
         }
     }
 }
