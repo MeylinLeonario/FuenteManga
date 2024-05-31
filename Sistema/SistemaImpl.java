@@ -16,7 +16,9 @@ import java.util.Scanner;
 import edu.princeton.cs.stdlib.In;
 
 public class SistemaImpl implements Sistema{
-   
+    Scanner scanner = new Scanner(System.in);
+    private Comentario commentarios;
+
     public void leerUsuario(){
 
         Usuario[] usuarios = new Usuario[6];
@@ -97,62 +99,98 @@ public class SistemaImpl implements Sistema{
 
         }
     }
+    /*
     public void leerComentario(){
-        List<Comments> comentariosList = new ArrayList<>();
+        Comentario[] comentarios = new Comentario[3];
         In in = new In("comments.csv");
-
+        int tamanio = 0;
         String linea = in.readLine();
 
         while(linea != null){
             String[] campos = linea.split(";");
             String isbn = campos[0];
             int cantidadComentarios = Integer.parseInt(campos[1]);
-            String[] comentarioPuntacion = campos[2].split("#");
-
-            Comentario[] subComentarios = new Comentario[cantidadComentarios];
 
             for (int i = 0; i < cantidadComentarios; i++){
-                String[] comentarioYRating = comentarioPuntacion[i].split(";");
-                String comment = comentarioYRating[2];
-                double rating = Double.parseDouble(comentarioYRating[3]);
-                subComentarios[i] = new Comentario(comment,rating);
+                String[] campus = linea.split("#");
+                String comment = campus[0];
+                double rating = Double.parseDouble(campus[1]);
+                //Hay que agregarlos a un List(comment, rating)
             }
-            Comments comments = new Comments(isbn,cantidadComentarios,subComentarios);
-            comentariosList.add(comments);
-            linea = in.readLine();
         }
 
     }
-    public void menu() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("<------{Inicio de Sesión}------>");
-        System.out.println("1. Administrador");
-        System.out.println("2. Usuario");
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
+    */
 
+    public void menumenu(){
+        System.out.println("<------{TIPO DE SESION}------>");
+        System.out.println("[1] Administrador");
+        System.out.println("[2] Usuario");
+    }
+    public void inicioComoAdmin(){
+        System.out.println("<------{INICIO DE SESIÓN}------>");
+        System.out.println("Inicio de sesión como administrador");
+        System.out.print("ID de administrador: ");
+        String administradorId = scanner.nextLine();
+        System.out.print("Nombre de Usuario: ");
+        String nombreUsuario = scanner.nextLine();
+        System.out.print("Contraseña: ");
+        String password = scanner.nextLine();
+        Rol rol = Rol.ADMINISTRADOR;
+        int id = Integer.parseInt(administradorId);
+        Administrador administrador = new Administrador(rol,nombreUsuario,id,password,administradorId);
+        System.out.println("Bienvenido, " + administradorId);
+    }
+    public void inicioComun(){
+        System.out.println("<------{Inicio de Sesión}------>");
+        System.out.println("Inicio de sesión como cliente.");
+        System.out.print("Nombre de usuario: ");
+        String nombreUsuario = scanner.nextLine();
+        System.out.println("Contraseña: ");
+        int contraseña = scanner.nextInt();
+        for(int i= 0; i< 10; i++){
+            if (nombreUsuario == ); //Crear una lista para cada lectura de archivos
+
+        }
+    }
+    public void menu() {
+        menumenu();
+        int opcion = scanner.nextInt();
+
+        switch(opcion){
+            case 1:
+                inicioComoAdmin();
+                break;
+            case 2:
+                //inicioComun();
+        }
         if (opcion == 1) {
-            System.out.println("<------{Inicio de Sesión}------>");
-            System.out.println("Inicio de sesión como administrador");
-            System.out.println("Id-Administrador:");
-            String administradorId = scanner.nextLine();
-            System.out.println("Nombre de Usuario: ");
-            String nombreUsuario = scanner.nextLine();
-            System.out.println("Contraseña:");
-            String password = scanner.nextLine();
-            Rol rol = Rol.ADMINISTRADOR;
-            int id = Integer.parseInt(administradorId);
-            Administrador administrador = new Administrador(rol,nombreUsuario,id,password,administradorId);
-            System.out.println("Bienvenido, " + administradorId);
+
 
         }else if (opcion == 2){
-            System.out.println("<------{Inicio de Sesión}------>");
-            System.out.println("Inicio de sesión como cliente");
-            System.out.println("nombre de usuario:");
-            String nombreUsuario = scanner.nextLine();
 
 
 
         }
+    }
+
+    @Override
+    public void busquedaManga(String titulo) {
+
+    }
+
+    @Override
+    public void productosComprados() {
+
+    }
+
+    @Override
+    public void valorarUnManga(String isbn) {
+
+    }
+
+    @Override
+    public void visualizarComentarios(String isbn) {
+
     }
 }
