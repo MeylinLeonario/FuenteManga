@@ -1,13 +1,13 @@
 package cl.ucn.disc.poo.fuentemanga.Clases;
 
 public class Manga {
-    private String isbn;
+    private int isbn;
     private String nombre;
     private int stock;
     private String descripcion;
     private int precio;
 
-    public Manga(String isbn, String nombre, int stock, String descripcion, int precio) {
+    public Manga(int isbn, String nombre, int stock, String descripcion, int precio) {
         this.isbn = isbn;
         this.nombre = nombre;
         this.stock = stock;
@@ -15,7 +15,7 @@ public class Manga {
         this.precio = precio;
     }
 
-    public String getIsbn() {
+    public int getIsbn() {
         return isbn;
     }
 

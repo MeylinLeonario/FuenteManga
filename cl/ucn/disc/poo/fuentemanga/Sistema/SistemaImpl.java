@@ -73,7 +73,7 @@ public class SistemaImpl implements Sistema {
 
             String[] campos = linea.split(";");
 
-            String isbn = campos[0];
+            int isbn = Integer.parseInt(campos[0]);
             String nombre = campos[1];
             int stock = Integer.parseInt(campos[2]);
             String descripcion = campos[3];
@@ -168,7 +168,7 @@ public class SistemaImpl implements Sistema {
         System.out.println("Bienvenido, " + administradorId);
     }
     public void inicioComun(){
-        System.out.println("<------{Inicio de Sesión}------>");
+        System.out.println("");
         System.out.println("Inicio de sesión como cliente.");
         System.out.print("Nombre de usuario: ");
         String nombreUsuario = scanner.nextLine();
@@ -185,12 +185,24 @@ public class SistemaImpl implements Sistema {
         leerManga();
         leerUsuario();
         leerComentario();
+        System.out.println("Ingrese su alternativa:");
         int opcion = scanner.nextInt();
 
         switch(opcion){
             case 1:
                 inicioComoAdmin();
+                menuAdministrador();
+                int alternativa = scanner.nextInt();
+                switch (alternativa){
+                    case 1:
+                        registrarManga();
+                        break;
+                    case 2:
+                        
+                }
+
                 break;
+
             case 2:
                 //inicioComun();
         }
@@ -203,7 +215,45 @@ public class SistemaImpl implements Sistema {
 
         }
     }
+    public void menuAdministrador(){
+        System.out.println("<------{FUNCIONALIDADES}------>");
+        System.out.println("[1] Registrar manga");
+        System.out.println("[2] Ver ultimas compras");
+        System.out.println("[3] Actualizar estado de una compra");
+        System.out.println("[4] Estadisticas");
+        System.out.println("[5] Salir");
 
+    }
+    public void registrarManga(Manga manga){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nombre del manga:");
+        String nombreManga = scanner.nextLine();
+        if (nombreManga == null){
+            throw new IllegalArgumentException("El maga no puede estar vacio.");
+        }
+        System.out.println("Codigo unico del manga:");
+        int codigoManga = scanner.nextInt();
+        if(codigoManga <= 0 ){
+            throw new IllegalArgumentException("El codigo no puede estar vacio ni ser negativo");
+        }
+        System.out.println("Cuantos mangas hay disponibles:");
+        int cantidadMangas = scanner.nextInt();
+        if(cantidadMangas <= 0){
+            throw new IllegalArgumentException("La cantidad de mangas no puede estar vacio ni ser negativo");
+        }
+        System.out.println("Descricion del manga: ");
+        String descripcionManga = scanner.nextLine();
+        if(descripcionManga == null){
+            throw new IllegalArgumentException("La descripcion no puede estar vacia-");
+        }
+        System.out.println("Precio del manga:");
+        int precioManga = scanner.nextInt();
+        if(precioManga <= 0){
+            throw new IllegalArgumentException("El precio del manga no puede estar vacio ni ser negativo");
+        }
+        manga= new Manga(codigoManga, nombreManga, cantidadMangas, descripcionManga, precioManga);
+
+    }
     @Override
     public void busquedaManga(String titulo) {
 
