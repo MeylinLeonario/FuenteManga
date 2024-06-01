@@ -44,13 +44,8 @@ public class SistemaImpl implements Sistema {
             String username = campos[1];
             int id = Integer.parseInt(campos[2]);
             String password = campos[3];
-            String administradorId = null;
-
-            if (campos[0].equals("ADMINISTRADOR")){
-
-                administradorId = campos[4];
-            }
             if (rol.equals("ADMINISTRADOR")) {
+                String administradorId = campos[4];
                 Administrador administrador = new Administrador(Rol.valueOf(rol), username, id, password, administradorId);
                 adminsList.add(administrador);
                 usuarios[tamanio] = administrador;
@@ -178,10 +173,10 @@ public class SistemaImpl implements Sistema {
         System.out.print("Nombre de usuario: ");
         String nombreUsuario = scanner.nextLine();
         System.out.println("Contraseña: ");
-        int contrasenia = scanner.nextInt();
-        for(int i= 0; i < adminsList.size(); i++){
-            if (nombreUsuario.equals(adminsList.get(i).getUsername())){
-                if (adminsList.get(i).getPassword().equals(contrasenia)){
+        String contrasenia = scanner.nextLine();
+        for(int i= 0; i < usuariosList.size(); i++){
+            if (nombreUsuario.equals(usuariosList.get(i).getUsername())){
+                if ((usuariosList.get(i).getPassword()).equals(contrasenia)){
                     System.out.println("¡LOGRADO!");
                 }
             }
@@ -212,7 +207,7 @@ public class SistemaImpl implements Sistema {
                 break;
 
             case 2:
-                //inicioComun();
+                inicioComun();
         }
         if (opcion == 1) {
 
