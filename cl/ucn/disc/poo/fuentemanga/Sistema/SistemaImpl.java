@@ -19,7 +19,11 @@ import org.w3c.dom.ls.LSOutput;
 
 public class SistemaImpl implements Sistema {
     Scanner scanner = new Scanner(System.in);
-    private List<Administrador> administradores = new ArrayList<>();
+    private List<Administrador> adminsList;
+    private List<Manga> mangasList;
+    private List<Usuario> usuariosList;
+    private List<Compra> comprasList;
+    private List<Comment> commentsList;
 
     private Comentario commentarios;
 
@@ -48,10 +52,11 @@ public class SistemaImpl implements Sistema {
             }
             if (rol.equals("ADMINISTRADOR")) {
                 Administrador administrador = new Administrador(Rol.valueOf(rol), username, id, password, administradorId);
-                administradores.add(administrador);
+                adminsList.add(administrador);
                 usuarios[tamanio] = administrador;
             } else if (rol.equals("USUARIO")) {
                 Usuario usuario = new Usuario(Rol.valueOf(rol), username, id, password);
+                usuariosList.add(usuario);
                 usuarios[tamanio] = usuario;
             }
             tamanio++;
@@ -73,7 +78,7 @@ public class SistemaImpl implements Sistema {
 
             String[] campos = linea.split(";");
 
-            int isbn = Integer.parseInt(campos[0]);
+            String isbn = campos[0];
             String nombre = campos[1];
             int stock = Integer.parseInt(campos[2]);
             String descripcion = campos[3];
@@ -173,10 +178,13 @@ public class SistemaImpl implements Sistema {
         System.out.print("Nombre de usuario: ");
         String nombreUsuario = scanner.nextLine();
         System.out.println("Contraseña: ");
-        int contraseña = scanner.nextInt();
-        for(int i= 0; i< 10; i++){
-            if (nombreUsuario == null); //Crear una lista para cada lectura de archivos
-
+        int contrasenia = scanner.nextInt();
+        for(int i= 0; i < adminsList.size(); i++){
+            if (nombreUsuario.equals(adminsList.get(i).getUsername())){
+                if (adminsList.get(i).getPassword().equals(contrasenia)){
+                    System.out.println("¡LOGRADO!");
+                }
+            }
         }
     }
     public void menu() {
@@ -195,7 +203,7 @@ public class SistemaImpl implements Sistema {
                 int alternativa = scanner.nextInt();
                 switch (alternativa){
                     case 1:
-                        registrarManga();
+                        //registrarManga();
                         break;
                     case 2:
                         
@@ -251,7 +259,7 @@ public class SistemaImpl implements Sistema {
         if(precioManga <= 0){
             throw new IllegalArgumentException("El precio del manga no puede estar vacio ni ser negativo");
         }
-        manga= new Manga(codigoManga, nombreManga, cantidadMangas, descripcionManga, precioManga);
+        manga= new Manga(String.valueOf(codigoManga), nombreManga, cantidadMangas, descripcionManga, precioManga);
 
     }
     @Override
