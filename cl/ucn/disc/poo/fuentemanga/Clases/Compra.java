@@ -1,13 +1,13 @@
 package cl.ucn.disc.poo.fuentemanga.Clases;
 
-public class Compras {
+public class Compra {
     private String isbn;
     private int usernameId;
     private String estado;
     private String fecha;
     private int cantidad;
 
-    public Compras(String isbn, int usernameId, String estado, String fecha, int cantidad) {
+    public Compra(String isbn, int usernameId, String estado, String fecha, int cantidad) {
         this.isbn = isbn;
         this.usernameId = usernameId;
         this.estado = estado;

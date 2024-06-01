@@ -1,11 +1,11 @@
 package cl.ucn.disc.poo.fuentemanga.Sistema;
 
 import cl.ucn.disc.poo.fuentemanga.Clases.Usuario;
-import cl.ucn.disc.poo.fuentemanga.Clases.Mangas;
+import cl.ucn.disc.poo.fuentemanga.Clases.Manga;
 import cl.ucn.disc.poo.fuentemanga.Clases.Administrador;
 import cl.ucn.disc.poo.fuentemanga.Clases.Comentario;
-import cl.ucn.disc.poo.fuentemanga.Clases.Compras;
-import cl.ucn.disc.poo.fuentemanga.Clases.Comments;
+import cl.ucn.disc.poo.fuentemanga.Clases.Compra;
+import cl.ucn.disc.poo.fuentemanga.Clases.Comment;
 import cl.ucn.disc.poo.fuentemanga.Clases.Rol;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class SistemaImpl implements Sistema {
 
     public void leerManga() {
 
-        Mangas[] mangas = new Mangas[5];
+        Manga[] mangas = new Manga[5];
 
         In in = new In("mangas.csv");
         int tamanio = 0;
@@ -79,7 +79,7 @@ public class SistemaImpl implements Sistema {
             String descripcion = campos[3];
             int precio = Integer.parseInt(campos[4]);
 
-            Mangas manga = new Mangas(isbn, nombre, stock, descripcion, precio);
+            Manga manga = new Manga(isbn, nombre, stock, descripcion, precio);
             mangas[tamanio] = manga;
             tamanio++;
             linea = in.readLine();
@@ -89,7 +89,7 @@ public class SistemaImpl implements Sistema {
 
     public void leerCompra() {
 
-        Compras[] compras = new Compras[5];
+        Compra[] compras = new Compra[5];
 
         In in = new In("compras.csv");
         int tamanio = 0;
@@ -106,7 +106,7 @@ public class SistemaImpl implements Sistema {
             String fecha = campos[3];
             int cantidad = Integer.parseInt(campos[4]);
 
-            Compras compra = new Compras(isbn, usernameId, estado, fecha, cantidad);
+            Compra compra = new Compra(isbn, usernameId, estado, fecha, cantidad);
             compras[tamanio] = compra;
             tamanio++;
             linea = in.readLine();
@@ -116,7 +116,7 @@ public class SistemaImpl implements Sistema {
     }
 
     public void leerComentario() {
-        List<Comments> comentariosList = new ArrayList<>();
+        List<Comment> comentariosList = new ArrayList<>();
         In in = new In("comments.csv");
         String linea = in.readLine();
         linea = in.readLine();
@@ -139,7 +139,7 @@ public class SistemaImpl implements Sistema {
                 subComentarios[i] = new Comentario(comment, rating);
 
             }
-            Comments comments = new Comments(isbn, cantidadComentarios, subComentarios);
+            Comment comments = new Comment(isbn, cantidadComentarios, subComentarios);
             comentariosList.add(comments);
             linea = in.readLine();
 
