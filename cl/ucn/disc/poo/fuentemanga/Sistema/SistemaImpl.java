@@ -1,26 +1,22 @@
 package cl.ucn.disc.poo.fuentemanga.Sistema;
 
 import cl.ucn.disc.poo.fuentemanga.Clases.Usuario;
-import cl.ucn.disc.poo.fuentemanga.Clases.Mangas;
+import cl.ucn.disc.poo.fuentemanga.Clases.Manga;
 import cl.ucn.disc.poo.fuentemanga.Clases.Administrador;
-import cl.ucn.disc.poo.fuentemanga.Clases.Comentario;
-import cl.ucn.disc.poo.fuentemanga.Clases.Compras;
-import cl.ucn.disc.poo.fuentemanga.Clases.Comments;
+import cl.ucn.disc.poo.fuentemanga.Clases.Compra;
 import cl.ucn.disc.poo.fuentemanga.Clases.Rol;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import edu.princeton.cs.stdlib.In;
-import org.w3c.dom.ls.LSOutput;
 
 public class SistemaImpl implements Sistema {
     Scanner scanner = new Scanner(System.in);
-    private List<Administrador> administradores;
-
-    private Comentario commentarios;
+    private List<Administrador> adminList;
+    private List<Usuario> usuariosList;
+    private List<Manga> mangasList;
 
     public void leerUsuario() {
 
@@ -28,24 +24,28 @@ public class SistemaImpl implements Sistema {
 
         In in = new In("users.csv");
         int tamanio = 0;
-        String linea = in.readLine();
 
-        while (linea != null) {
+        in.readLine();
+        String linea = in.readLine();
+        while (linea!= null) {
 
             String[] campos = linea.split(",");
 
             String rol = campos[0];
+            System.out.println(rol);
             String username = campos[1];
-            int id = Integer.parseInt(campos[3]);
-            String password = campos[4];
-            String administradorId = campos[5];
+            System.out.println(username);
+            int id = Integer.parseInt(campos[2]);
+            String password = campos[3];
 
             if (rol == "ADMINISTRADOR") {
+                String administradorId = campos[4];
                 Administrador administrador = new Administrador(Rol.valueOf(rol), username, id, password, administradorId);
-                administradores.add(administrador);
+                adminList.add(administrador);
                 usuarios[tamanio] = administrador;
             } else if (rol == "USUARIO") {
                 Usuario usuario = new Usuario(Rol.valueOf(rol), username, id, password);
+                usuariosList.add(usuario);
                 usuarios[tamanio] = usuario;
             }
             tamanio++;
@@ -55,10 +55,12 @@ public class SistemaImpl implements Sistema {
 
     public void leerManga() {
 
-        Mangas[] mangas = new Mangas[5];
+        Manga[] mangas = new Manga[5];
 
         In in = new In("mangas.csv");
         int tamanio = 0;
+
+        in.readLine();
         String linea = in.readLine();
 
         while (linea != null) {
@@ -71,20 +73,22 @@ public class SistemaImpl implements Sistema {
             String descripcion = campos[3];
             int precio = Integer.parseInt(campos[4]);
 
-            Mangas manga = new Mangas(isbn, nombre, stock, descripcion, precio);
+            Manga manga = new Manga(isbn, nombre, stock, descripcion, precio);
+            mangasList.add(manga);
             mangas[tamanio] = manga;
             tamanio++;
             linea = in.readLine();
         }
-
     }
 
     public void leerCompra() {
 
-        Compras[] compras = new Compras[5];
+        Compra[] compras = new Compra[5];
 
         In in = new In("compras.csv");
         int tamanio = 0;
+
+        in.readLine();
         String linea = in.readLine();
 
         while (linea != null) {
@@ -97,15 +101,16 @@ public class SistemaImpl implements Sistema {
             String fecha = campos[3];
             int cantidad = Integer.parseInt(campos[4]);
 
-            Compras compra = new Compras(isbn, usernameId, estado, fecha, cantidad);
+            Compra compra = new Compra(isbn, usernameId, estado, fecha, cantidad);
             compras[tamanio] = compra;
             tamanio++;
+
             linea = in.readLine();
 
         }
     }
 
-    public void leerComentario() {
+  /*  public void leerComentario() {
         List<Comments> comentariosList = new ArrayList<>();
         In in = new In("comments.csv");
         String linea = in.readLine();
@@ -134,7 +139,7 @@ public class SistemaImpl implements Sistema {
         }
 
     }
-
+*/
     public void menumenu(){
         System.out.println("<------{TIPO DE SESION}------>");
         System.out.println("[1] Administrador");
@@ -153,6 +158,17 @@ public class SistemaImpl implements Sistema {
         int id = Integer.parseInt(administradorId);
         Administrador administrador = new Administrador(rol,nombreUsuario,id,password,administradorId);
         System.out.println("Bienvenido, " + administradorId);
+        for (int i = 0; i < adminList.size(); i++){
+            if (administradorId.equals(adminList.get(i).getAdministradorId())){
+                if (nombreUsuario.equals(adminList.get(i).getUsername())){
+                    if (password.equals(adminList.get(i).getPassword())){
+                        System.out.println("VICTORIA");
+                    }
+                }
+            }
+
+        }
+
     }
     public void inicioComun(){
         System.out.println("<------{Inicio de Sesión}------>");
@@ -160,15 +176,18 @@ public class SistemaImpl implements Sistema {
         System.out.print("Nombre de usuario: ");
         String nombreUsuario = scanner.nextLine();
         System.out.println("Contraseña: ");
-        int contraseña = scanner.nextInt();
-        for(int i= 0; i< 10; i++){
-            if (nombreUsuario == null); //Crear una lista para cada lectura de archivos
+        String contrasenia = scanner.nextLine();
+        for(int i= 0; i< usuariosList.size(); i++){
+            if (nombreUsuario.equals(usuariosList.get(i).getUsername())){
+                if (Objects.equals(contrasenia, usuariosList.get(i).getPassword())){
+                    System.out.println("VICTORIA");
+                }
+            }
 
         }
     }
     public void menu() {
         menumenu();
-        leerComentario();
         int opcion = scanner.nextInt();
 
         switch(opcion){
@@ -177,14 +196,6 @@ public class SistemaImpl implements Sistema {
                 break;
             case 2:
                 //inicioComun();
-        }
-        if (opcion == 1) {
-
-
-        }else if (opcion == 2){
-
-
-
         }
     }
 
