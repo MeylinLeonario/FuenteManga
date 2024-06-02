@@ -33,10 +33,10 @@ public class SistemaImpl implements Sistema {
 
         In in = new In("users.csv");
         int tamanio = 0;
-        String linea = in.readLine();
-        linea = in.readLine();
 
-        while (linea != null && !linea.isEmpty()) {
+        in.readLine();
+        String linea = in.readLine();
+        while (linea != null) {
 
             String[] campos = linea.split(",");
 
@@ -168,7 +168,6 @@ public class SistemaImpl implements Sistema {
         System.out.println("Bienvenido, " + administradorId);
     }
     public void inicioComun(){
-        System.out.println("");
         System.out.println("Inicio de sesión como cliente.");
         System.out.print("Nombre de usuario: ");
         String nombreUsuario = scanner.nextLine();
@@ -208,14 +207,6 @@ public class SistemaImpl implements Sistema {
 
             case 2:
                 inicioComun();
-        }
-        if (opcion == 1) {
-
-
-        }else if (opcion == 2){
-
-
-
         }
     }
     public void menuAdministrador(){
