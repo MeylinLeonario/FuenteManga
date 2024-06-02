@@ -163,10 +163,15 @@ public class SistemaImpl implements Sistema {
         String nombreUsuario = scanner.nextLine();
         System.out.print("Contraseña: ");
         String password = scanner.nextLine();
-        Rol rol = Rol.ADMINISTRADOR;
-        int id = Integer.parseInt(administradorId);
-        Administrador administrador = new Administrador(rol,nombreUsuario,id,password,administradorId);
-        System.out.println("Bienvenido, " + administradorId);
+        for(int i= 0; i < adminsList.size(); i++){
+            if (administradorId.equals(adminsList.get(i).getAdministradorId())){
+                if (nombreUsuario.equals(adminsList.get(i).getUsername())) {
+                    if (password.equals(adminsList.get(i).getPassword())){
+                        System.out.println("¡LOGRADO!");
+                    }
+                }
+            }
+        }
     }
     public void inicioComun(){
         System.out.println("Inicio de sesión como cliente.");
