@@ -8,10 +8,7 @@ import cl.ucn.disc.poo.fuentemanga.Clases.Compra;
 import cl.ucn.disc.poo.fuentemanga.Clases.Comment;
 import cl.ucn.disc.poo.fuentemanga.Clases.Rol;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import edu.princeton.cs.stdlib.In;
 import edu.princeton.cs.stdlib.StdOut;
@@ -19,11 +16,11 @@ import org.w3c.dom.ls.LSOutput;
 
 public class SistemaImpl implements Sistema {
     Scanner scanner = new Scanner(System.in);
-    private List<Administrador> adminsList;
-    private List<Manga> mangasList;
-    private List<Usuario> usuariosList;
-    private List<Compra> comprasList;
-    private List<Comment> commentsList;
+    private List<Administrador> adminsList = new ArrayList<>();
+    private List<Manga> mangasList = new ArrayList<>();
+    private List<Usuario> usuariosList = new ArrayList<>();
+    private List<Compra> comprasList = new ArrayList<>();
+    private List<Comment> commentsList = new ArrayList<>();
 
     private Comentario commentarios;
 
@@ -44,8 +41,12 @@ public class SistemaImpl implements Sistema {
             String username = campos[1];
             int id = Integer.parseInt(campos[2]);
             String password = campos[3];
+            String administradorId = null;
+
+            if (Objects.equals(campos[0], "ADMINISTRADOR")){
+                administradorId = campos[4];
+            }
             if (rol.equals("ADMINISTRADOR")) {
-                String administradorId = campos[4];
                 Administrador administrador = new Administrador(Rol.valueOf(rol), username, id, password, administradorId);
                 adminsList.add(administrador);
                 usuarios[tamanio] = administrador;
