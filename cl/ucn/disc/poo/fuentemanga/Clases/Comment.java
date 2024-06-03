@@ -32,4 +32,5 @@ public class Comment {
     public Comentario[] getSubComentarios() {
         return subComentarios;
     }
+
 }

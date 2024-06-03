@@ -81,6 +81,7 @@ public class SistemaImpl implements Sistema {
             int precio = Integer.parseInt(campos[4]);
 
             Manga manga = new Manga(isbn, nombre, stock, descripcion, precio);
+            mangasList.add(manga);
             mangas[tamanio] = manga;
             tamanio++;
             linea = in.readLine();
@@ -239,6 +240,7 @@ public class SistemaImpl implements Sistema {
                     case "1":
                         obtenerTitulo();
                 }
+                break;
         }
     }
     public void menuAdministrador(){
@@ -314,11 +316,17 @@ public class SistemaImpl implements Sistema {
     }
     @Override
     public void busquedaManga(String titulo) {
-        System.out.println("Sí entra a la funcion");
-        for (int i = 0; i< mangasList.size(); i++){
+        System.out.println(mangasList.size());
+        for (int i = 0; i < mangasList.size(); i++){
             if (titulo.equals(mangasList.get(i).getNombre())){
                 System.out.println("¡Título encontrado!");
-                System.out.println(mangasList.get(i));
+                System.out.println("Título: " + mangasList.get(i).getNombre());
+                System.out.println("ISBN: " + mangasList.get(i).getIsbn());
+                for (int j = i + 1; j < commentsList.size(); j++){
+                    if (mangasList.get(i).getIsbn().equals(commentsList.get(j).getIsbn())){
+                        System.out.println("Cantidad de comentarios: " + commentsList.get(j).getCantidad_comentarios());
+                    }
+                }
 
             }
         }
