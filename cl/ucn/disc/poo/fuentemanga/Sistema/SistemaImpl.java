@@ -21,8 +21,7 @@ public class SistemaImpl implements Sistema {
     private List<Usuario> usuariosList = new ArrayList<>();
     private List<Compra> comprasList = new ArrayList<>();
     private List<Comment> commentsList = new ArrayList<>();
-
-    private Comentario commentarios;
+    private List<Comentario> miniCommentsList = new ArrayList<>();
 
     public void leerUsuario() {
 
@@ -109,6 +108,7 @@ public class SistemaImpl implements Sistema {
             int cantidad = Integer.parseInt(campos[5]);
 
             Compra compra = new Compra(id, isbn, usernameId, estado, fecha, cantidad);
+            comprasList.add(compra);
             compras[tamanio] = compra;
             tamanio++;
             linea = in.readLine();
@@ -140,9 +140,11 @@ public class SistemaImpl implements Sistema {
                 double rating = Double.parseDouble(comentarioYRating[1]);
                 subComentarios[i] = new Comentario(comment, rating);
 
+                miniCommentsList.add(subComentarios[i]);
+
             }
             Comment comments = new Comment(isbn, cantidadComentarios, subComentarios);
-            comentariosList.add(comments);
+            commentsList.add(comments);
             linea = in.readLine();
 
         }
@@ -316,17 +318,23 @@ public class SistemaImpl implements Sistema {
     }
     @Override
     public void busquedaManga(String titulo) {
-        System.out.println(mangasList.size());
-        for (int i = 0; i < mangasList.size(); i++){
-            if (titulo.equals(mangasList.get(i).getNombre())){
+        for (Manga manga : mangasList) {
+            if (titulo.equals(manga.getNombre())) {
                 System.out.println("¡Título encontrado!");
-                System.out.println("Título: " + mangasList.get(i).getNombre());
-                System.out.println("ISBN: " + mangasList.get(i).getIsbn());
-                for (int j = i + 1; j < commentsList.size(); j++){
-                    if (mangasList.get(i).getIsbn().equals(commentsList.get(j).getIsbn())){
-                        System.out.println("Cantidad de comentarios: " + commentsList.get(j).getCantidad_comentarios());
+                System.out.println("Título: " + manga.getNombre());
+                System.out.println("ISBN: " + manga.getIsbn());
+                double suma = 0;
+                double cantidad = 0;
+                for (Comment comment : commentsList) {
+                    if ((comment.getIsbn()).equals(manga.getIsbn())) {
+                        for (Comentario comentario : miniCommentsList){
+                            suma += comentario.getRating();
+                            cantidad +=1;
+                        }
                     }
                 }
+                double ratingComun = suma / cantidad;
+                System.out.println("Rating: " + ratingComun);
 
             }
         }
