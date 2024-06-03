@@ -100,14 +100,14 @@ public class SistemaImpl implements Sistema {
         while (linea != null && !linea.isEmpty()) {
 
             String[] campos = linea.split(",");
+            int id = Integer.parseInt(campos[0]);
+            String isbn = campos[1];
+            int usernameId = Integer.parseInt(campos[2]);
+            String estado = campos[3];
+            String fecha = campos[4];
+            int cantidad = Integer.parseInt(campos[5]);
 
-            String isbn = campos[0];
-            int usernameId = Integer.parseInt(campos[1]);
-            String estado = campos[2];
-            String fecha = campos[3];
-            int cantidad = Integer.parseInt(campos[4]);
-
-            Compra compra = new Compra(isbn, usernameId, estado, fecha, cantidad);
+            Compra compra = new Compra(id, isbn, usernameId, estado, fecha, cantidad);
             compras[tamanio] = compra;
             tamanio++;
             linea = in.readLine();
@@ -158,19 +158,30 @@ public class SistemaImpl implements Sistema {
         System.out.println("<------{INICIO DE SESIÓN}------>");
         System.out.println("Inicio de sesión como administrador");
         System.out.print("ID de administrador: ");
+        scanner.nextLine();
         String administradorId = scanner.nextLine();
         System.out.print("Nombre de Usuario: ");
         String nombreUsuario = scanner.nextLine();
         System.out.print("Contraseña: ");
         String password = scanner.nextLine();
-        for(int i= 0; i < adminsList.size(); i++){
-            if (administradorId.equals(adminsList.get(i).getAdministradorId())){
-                if (nombreUsuario.equals(adminsList.get(i).getUsername())) {
-                    if (password.equals(adminsList.get(i).getPassword())){
-                        System.out.println("¡LOGRADO!");
+        while (true) {
+            for (int i = 0; i < adminsList.size(); i++) {
+                if (administradorId.equals(adminsList.get(i).getAdministradorId())) {
+                    if (nombreUsuario.equals(adminsList.get(i).getUsername())) {
+                        if (password.equals(adminsList.get(i).getPassword())) {
+                            System.out.println("Ingreso exitoso.");
+                            return;
+                        }
                     }
                 }
             }
+            System.out.println("Datos incorrectos. Ingrese nuevamente");
+            System.out.print("ID de administrador: ");
+            administradorId = scanner.nextLine();
+            System.out.print("Nombre de Usuario: ");
+            nombreUsuario = scanner.nextLine();
+            System.out.print("Contraseña: ");
+            password = scanner.nextLine();
         }
     }
     public void inicioComun(){
@@ -179,12 +190,20 @@ public class SistemaImpl implements Sistema {
         String nombreUsuario = scanner.nextLine();
         System.out.println("Contraseña: ");
         String contrasenia = scanner.nextLine();
-        for(int i= 0; i < usuariosList.size(); i++){
-            if (nombreUsuario.equals(usuariosList.get(i).getUsername())){
-                if ((usuariosList.get(i).getPassword()).equals(contrasenia)){
-                    System.out.println("¡LOGRADO!");
+        while (true) {
+            for (int i = 0; i < usuariosList.size(); i++) {
+                if (nombreUsuario.equals(usuariosList.get(i).getUsername())) {
+                    if ((usuariosList.get(i).getPassword()).equals(contrasenia)) {
+                        System.out.println("Ingreso exitoso.");
+                        return;
+                    }
                 }
             }
+            System.out.println("Nombre de usuario o contraseña incorrectos. Intente otra vez.");
+            System.out.print("Nombre de usuario: ");
+            nombreUsuario = scanner.nextLine();
+            System.out.println("Contraseña: ");
+            contrasenia = scanner.nextLine();
         }
     }
     public void menu() {
@@ -193,7 +212,7 @@ public class SistemaImpl implements Sistema {
         leerManga();
         leerUsuario();
         leerComentario();
-        System.out.println("Ingrese su alternativa:");
+        System.out.print("Ingrese su alternativa:");
         int opcion = scanner.nextInt();
 
         switch(opcion){
@@ -254,9 +273,31 @@ public class SistemaImpl implements Sistema {
         manga= new Manga(String.valueOf(codigoManga), nombreManga, cantidadMangas, descripcionManga, precioManga);
 
     }
+
+    @Override
+    public void verUltimasCompras() {
+
+    }
+
+    @Override
+    public void actualizarEstadoDeCompra(int idCompra) {
+
+    }
+
+
+    @Override
+    public void estadistica() {
+
+    }
+
     @Override
     public void busquedaManga(String titulo) {
+        for (int i = 0; i< mangasList.size(); i++){
+            if (titulo.equals(mangasList.get(i).getNombre())){
+                System.out.println("¡Título encontrado!");
 
+            }
+        }
     }
 
     @Override
