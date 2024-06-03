@@ -187,6 +187,7 @@ public class SistemaImpl implements Sistema {
     public void inicioComun(){
         System.out.println("Inicio de sesión como cliente.");
         System.out.print("Nombre de usuario: ");
+        scanner.nextLine();
         String nombreUsuario = scanner.nextLine();
         System.out.println("Contraseña: ");
         String contrasenia = scanner.nextLine();
@@ -232,6 +233,12 @@ public class SistemaImpl implements Sistema {
 
             case 2:
                 inicioComun();
+                menuUsuario();
+                String option = scanner.nextLine();
+                switch(option){
+                    case "1":
+                        obtenerTitulo();
+                }
         }
     }
     public void menuAdministrador(){
@@ -242,6 +249,16 @@ public class SistemaImpl implements Sistema {
         System.out.println("[4] Estadisticas");
         System.out.println("[5] Salir");
 
+    }
+
+    public void menuUsuario(){
+        System.out.println("<------{FUNCIONALIDADES}------>");
+        System.out.println("[1] Buscar un manga");
+        System.out.println("[2] Ver productos comprados");
+        System.out.println("[3] Valorar un manga");
+        System.out.println("[4] Visualizar comentarios");
+        System.out.println("[5] Comprar un manga");
+        System.out.println("[6] Salir");
     }
     public void registrarManga(Manga manga){
         Scanner scanner = new Scanner(System.in);
@@ -290,15 +307,23 @@ public class SistemaImpl implements Sistema {
 
     }
 
+    public void obtenerTitulo(){
+        System.out.print("Ingrese un título: ");
+        String titulo = scanner.nextLine();
+        busquedaManga(titulo);
+    }
     @Override
     public void busquedaManga(String titulo) {
+        System.out.println("Sí entra a la funcion");
         for (int i = 0; i< mangasList.size(); i++){
             if (titulo.equals(mangasList.get(i).getNombre())){
                 System.out.println("¡Título encontrado!");
+                System.out.println(mangasList.get(i));
 
             }
         }
     }
+
 
     @Override
     public void productosComprados() {
