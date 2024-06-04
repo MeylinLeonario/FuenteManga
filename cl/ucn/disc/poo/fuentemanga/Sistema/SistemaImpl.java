@@ -1,17 +1,12 @@
 package cl.ucn.disc.poo.fuentemanga.Sistema;
 
-import cl.ucn.disc.poo.fuentemanga.Clases.Usuario;
-import cl.ucn.disc.poo.fuentemanga.Clases.Manga;
-import cl.ucn.disc.poo.fuentemanga.Clases.Administrador;
-import cl.ucn.disc.poo.fuentemanga.Clases.Comentario;
-import cl.ucn.disc.poo.fuentemanga.Clases.Compra;
-import cl.ucn.disc.poo.fuentemanga.Clases.Comment;
-import cl.ucn.disc.poo.fuentemanga.Clases.Rol;
+import cl.ucn.disc.poo.fuentemanga.Clases.*;
 
 import java.text.DecimalFormat;
 import java.util.*;
 
 import edu.princeton.cs.stdlib.In;
+import edu.princeton.cs.stdlib.Out;
 import edu.princeton.cs.stdlib.StdOut;
 import org.w3c.dom.ls.LSOutput;
 
@@ -23,6 +18,7 @@ public class SistemaImpl implements Sistema {
     private List<Compra> comprasList = new ArrayList<>();
     private List<Comment> commentsList = new ArrayList<>();
     private List<Comentario> miniCommentsList = new ArrayList<>();
+    private List<MangaComprado> mangasComprados = new ArrayList<>();
 
     public void leerUsuario() {
 
@@ -388,15 +384,44 @@ public class SistemaImpl implements Sistema {
         System.out.println("<-----COMPRAR PRODUCTO----->");
         System.out.print("Ingresa el ISBN del producto a comprar: ");
         String newISBN = scanner.nextLine();
-        System.out.print("Ingresa la cantidad de productos: ");
-        String quantity = scanner.nextLine();
-        System.out.print("Ingrese el método de pago (Débito/Crédito): ");
-        String pago = scanner.nextLine();
-
+        comprarUnManga(newISBN);
         }
 
     @Override
     public void comprarUnManga(String isbn) {
+        boolean found = false;
+        for (Manga manga : mangasList) {
+            if (manga.getIsbn().equals(isbn)) {
+                found = true;
+                continuationCM(isbn);
+                savingMC();
 
+            }
+        }
+        if (!found){
+            System.out.println("No existe un manga con ese ISBN");
+        }
+    }
+
+    public void continuationCM(String isbn){
+        System.out.print("Ingresa la cantidad de productos: ");
+        String quantity = scanner.nextLine();
+        System.out.print("Ingrese el método de pago (Débito/Crédito/Efectivo): ");
+        String paymentMethod = scanner.nextLine();
+        MangaComprado mangaComprado = new MangaComprado(isbn,Integer.parseInt(quantity),paymentMethod);
+        mangasComprados.add(mangaComprado);
+    }
+
+    public void savingMC(){
+        Out out = new Out("MangasComprados.csv");
+        for (int i = 0; i < mangasComprados.size(); i++){
+            for (int j = 0; j < mangasList.size(); i++) {
+                if (mangasList.get(j).getIsbn().equals(mangasComprados.get(i).getIsbn())) {
+                    System.out.println("[" + mangasList.get(j).getNombre() + "]: " + mangasComprados.get(i).getIsbn() + " -> " + mangasComprados.get(i).getCantidad());
+                    String mangaInText = mangasList.get(j).getNombre() + ";" + mangasComprados.get(i).getIsbn() + ";" + mangasComprados.get(i).getCantidad();
+                    out.println(mangaInText);
+                }
+            }
+        }
     }
 }
