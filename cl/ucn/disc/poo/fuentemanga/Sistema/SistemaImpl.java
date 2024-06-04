@@ -364,14 +364,40 @@ public class SistemaImpl implements Sistema {
         String formatted = df.format(numero);
         return Double.parseDouble(formatted);
     }
+
+    //SECCION PRODUCTOS COMPRADOS
     @Override
     public void productosComprados() {
-
+        for (MangaComprado mangasComprado : mangasComprados) {
+            for (Manga manga : mangasList) {
+                if (manga.getIsbn().equals(mangasComprado.getIsbn())) {
+                    System.out.println("[" + manga.getNombre() + "]: " + mangasComprado.getIsbn() + " -> " + mangasComprado.getCantidad());
+                }
+            }
+        }
     }
 
+    //SECCION "VALORAR UN MANGA"
     @Override
     public void valorarUnManga(String isbn) {
+        System.out.print("ISBN del manga a valorar: ");
+        String newISBN = scanner.nextLine();
+        boolean found = false;
+        for (MangaComprado mangaComprado : mangasComprados) {
+            if (mangaComprado.getIsbn().equals(newISBN)) {
+                found = true;
+                continuationVM(newISBN);
+            }
 
+        }
+    }
+
+    public void continuationVM(String newISBN){
+        System.out.print("Comentario: ");
+        String comentario = scanner.nextLine();
+        while (true){
+            if (comentario.length() )
+        }
     }
 
     @Override
@@ -414,11 +440,11 @@ public class SistemaImpl implements Sistema {
 
     public void savingMC(){
         Out out = new Out("MangasComprados.csv");
-        for (int i = 0; i < mangasComprados.size(); i++){
-            for (int j = 0; j < mangasList.size(); i++) {
-                if (mangasList.get(j).getIsbn().equals(mangasComprados.get(i).getIsbn())) {
-                    System.out.println("[" + mangasList.get(j).getNombre() + "]: " + mangasComprados.get(i).getIsbn() + " -> " + mangasComprados.get(i).getCantidad());
-                    String mangaInText = mangasList.get(j).getNombre() + ";" + mangasComprados.get(i).getIsbn() + ";" + mangasComprados.get(i).getCantidad();
+        for (MangaComprado mangasComprado : mangasComprados) {
+            for (Manga manga : mangasList) {
+                if (manga.getIsbn().equals(mangasComprado.getIsbn())) {
+                    System.out.println("[" + manga.getNombre() + "]: " + mangasComprado.getIsbn() + " -> " + mangasComprado.getCantidad());
+                    String mangaInText = manga.getNombre() + ";" + mangasComprado.getIsbn() + ";" + mangasComprado.getCantidad();
                     out.println(mangaInText);
                 }
             }
