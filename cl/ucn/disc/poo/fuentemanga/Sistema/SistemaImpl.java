@@ -8,6 +8,7 @@ import cl.ucn.disc.poo.fuentemanga.Clases.Compra;
 import cl.ucn.disc.poo.fuentemanga.Clases.Comment;
 import cl.ucn.disc.poo.fuentemanga.Clases.Rol;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 import edu.princeton.cs.stdlib.In;
@@ -236,13 +237,27 @@ public class SistemaImpl implements Sistema {
 
             case 2:
                 inicioComun();
+                while (true){
                 menuUsuario();
                 String option = scanner.nextLine();
-                switch(option){
-                    case "1":
-                        obtenerTitulo();
+                    switch(option){
+                        case "1":
+                            obtenerTitulo();
+                            break;
+                        case "2":
+                            productosComprados();
+                            break;
+                        case "3":
+                            //valorarUnManga();
+                            break;
+                        case "4":
+                            //visualizarComentarios();
+                            break;
+                        case "5":
+                            gettingAnISBN();
+                    }
                 }
-                break;
+
         }
     }
     public void menuAdministrador(){
@@ -318,29 +333,41 @@ public class SistemaImpl implements Sistema {
     }
     @Override
     public void busquedaManga(String titulo) {
+        boolean existe = false;
         for (Manga manga : mangasList) {
             if (titulo.equals(manga.getNombre())) {
+                existe = true;
                 System.out.println("¡Título encontrado!");
                 System.out.println("Título: " + manga.getNombre());
                 System.out.println("ISBN: " + manga.getIsbn());
                 double suma = 0;
                 double cantidad = 0;
+                int comentarios = 0;
                 for (Comment comment : commentsList) {
                     if ((comment.getIsbn()).equals(manga.getIsbn())) {
                         for (Comentario comentario : miniCommentsList){
                             suma += comentario.getRating();
                             cantidad +=1;
                         }
+                        comentarios++;
                     }
                 }
+                System.out.println("Comentarios: " + comentarios);
                 double ratingComun = suma / cantidad;
-                System.out.println("Rating: " + ratingComun);
-
+                double original = decimalFormat(ratingComun);
+                System.out.println("Rating promedio: " + original);
+                System.out.println("Stock: " + manga.getStock());
             }
         }
+        if (!existe){
+            System.out.println("El título no existe");
+        }
     }
-
-
+    public double decimalFormat(double numero){
+        DecimalFormat df = new DecimalFormat("#.#");
+        String formatted = df.format(numero);
+        return Double.parseDouble(formatted);
+    }
     @Override
     public void productosComprados() {
 
@@ -353,6 +380,23 @@ public class SistemaImpl implements Sistema {
 
     @Override
     public void visualizarComentarios(String isbn) {
+
+    }
+
+    //SECCION: COMPRAR UN MANGA
+    public void gettingAnISBN(){
+        System.out.println("<-----COMPRAR PRODUCTO----->");
+        System.out.print("Ingresa el ISBN del producto a comprar: ");
+        String newISBN = scanner.nextLine();
+        System.out.print("Ingresa la cantidad de productos: ");
+        String quantity = scanner.nextLine();
+        System.out.print("Ingrese el método de pago (Débito/Crédito): ");
+        String pago = scanner.nextLine();
+
+        }
+
+    @Override
+    public void comprarUnManga(String isbn) {
 
     }
 }
