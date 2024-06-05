@@ -58,9 +58,7 @@ public class SistemaImpl implements Sistema {
     }
 
     public void leerManga() {
-
         Manga[] mangas = new Manga[5];
-
         In in = new In("mangas.csv");
         int tamanio = 0;
         String linea = in.readLine();
@@ -69,7 +67,6 @@ public class SistemaImpl implements Sistema {
         while (linea != null && !linea.isEmpty()) {
 
             String[] campos = linea.split(";");
-
             String isbn = campos[0];
             String nombre = campos[1];
             int stock = Integer.parseInt(campos[2]);
@@ -170,6 +167,7 @@ public class SistemaImpl implements Sistema {
                     if (nombreUsuario.equals(adminsList.get(i).getUsername())) {
                         if (password.equals(adminsList.get(i).getPassword())) {
                             System.out.println("Ingreso exitoso.");
+                            System.out.println("Bienvenid@ " + nombreUsuario );
                             return;
                         }
                     }
@@ -213,23 +211,32 @@ public class SistemaImpl implements Sistema {
         leerManga();
         leerUsuario();
         leerComentario();
-        System.out.print("Ingrese su alternativa:");
+        System.out.print("Ingrese su alternativa: ");
         int opcion = scanner.nextInt();
 
         switch(opcion){
             case 1:
                 inicioComoAdmin();
+                while (true){
                 menuAdministrador();
+                System.out.print("Ingrese alternativa: ");
                 int alternativa = scanner.nextInt();
-                switch (alternativa){
-                    case 1:
-                        //registrarManga();
-                        break;
-                    case 2:
-                        
+                    switch (alternativa){
+                        case 1:
+                            registrarManga();
+                            break;
+                        case 2:
+                            // ver ultimas compras
+                            break;
+                        case 3:
+                            actualizarEstadoDeCompra();
+                            break;
+                        case 4:
+                            //Estadisticas
+                        case 5:
+                            //salir
+                    }
                 }
-
-                break;
 
             case 2:
                 inicioComun();
@@ -275,44 +282,94 @@ public class SistemaImpl implements Sistema {
         System.out.println("[5] Comprar un manga");
         System.out.println("[6] Salir");
     }
-    public void registrarManga(Manga manga){
+    public void registrarManga(){
+        System.out.println("<------{REGISTRAR MANGA}------>");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nombre del manga:");
+        System.out.print("Nombre del manga: ");
         String nombreManga = scanner.nextLine();
-        if (nombreManga == null){
+        if (nombreManga == null || nombreManga.isEmpty()){
             throw new IllegalArgumentException("El maga no puede estar vacio.");
         }
-        System.out.println("Codigo unico del manga:");
-        int codigoManga = scanner.nextInt();
-        if(codigoManga <= 0 ){
-            throw new IllegalArgumentException("El codigo no puede estar vacio ni ser negativo");
+        System.out.print("Codigo unico del manga: ");
+        String codigoManga =scanner.nextLine();
+        if (codigoManga == null || codigoManga.isEmpty()) {
+            throw new IllegalArgumentException("El código no puede estar vacío.");
         }
-        System.out.println("Cuantos mangas hay disponibles:");
+        System.out.print("Cuantos mangas hay disponibles: ");
         int cantidadMangas = scanner.nextInt();
+        scanner.nextLine();
         if(cantidadMangas <= 0){
             throw new IllegalArgumentException("La cantidad de mangas no puede estar vacio ni ser negativo");
         }
-        System.out.println("Descricion del manga: ");
+        System.out.print("Descricion del manga: ");
         String descripcionManga = scanner.nextLine();
-        if(descripcionManga == null){
+        if(descripcionManga == null || descripcionManga.isEmpty()){
             throw new IllegalArgumentException("La descripcion no puede estar vacia-");
         }
-        System.out.println("Precio del manga:");
+        System.out.print("Precio del manga: ");
         int precioManga = scanner.nextInt();
+        scanner.nextLine();
         if(precioManga <= 0){
             throw new IllegalArgumentException("El precio del manga no puede estar vacio ni ser negativo");
         }
-        manga= new Manga(String.valueOf(codigoManga), nombreManga, cantidadMangas, descripcionManga, precioManga);
+        Manga manga= new Manga(codigoManga, nombreManga, cantidadMangas, descripcionManga, precioManga);
+        mangaExiste(manga);
+        mangasList.add(manga);
+
+
 
     }
+    public void mangaExiste(Manga manga) {
+        for (Manga mg : mangasList) {
+            if (mg.getIsbn().equals(manga.getIsbn())) {
+                System.out.println("Manga ya existente");
+                break;
+            } else {
+                return;
+            }
+        }
 
+
+    }
     @Override
     public void verUltimasCompras() {
+        leerCompra();
+
+
 
     }
 
     @Override
-    public void actualizarEstadoDeCompra(int idCompra) {
+    public void actualizarEstadoDeCompra() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el id del pedido: ");
+        int idCompra = scanner.nextInt();
+        scanner.nextLine();
+
+
+        for(Compra compra: comprasList){
+          if(compra.getId() == idCompra){
+            while (true){
+                if(compra.getEstado().equals("Obteniendo porducto")){
+                   compra.setEstado("Alistando el producto");
+                   break;
+                } else if(compra.getEstado().equals("Alistando producto")){
+                   compra.setEstado("Enviando a domicilio");
+                   break;
+                } else if(compra.getEstado().equals("Enviando a domicilio")){
+                   compra.setEstado("Resivido");
+                   break;
+                } else if(compra.getEstado().equals("Resivido")){
+                   compra.setEstado("El pedido ya a sido resivido");
+                   return;
+                }
+            }
+            System.out.println("Actualizacion exitosa");
+            return;
+          }
+
+        }
+        System.out.println("No se encontro ninguna compra con el identificador proporcionado");
 
     }
 

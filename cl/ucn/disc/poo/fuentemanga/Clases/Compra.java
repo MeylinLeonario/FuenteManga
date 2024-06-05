@@ -16,6 +16,7 @@ public class Compra {
         this.fecha = fecha;
         this.cantidad = cantidad;
     }
+    public int getId(){ return id;}
 
     public String getIsbn() {
         return isbn;
@@ -29,11 +30,15 @@ public class Compra {
         return estado;
     }
 
+
     public String getFecha() {
         return fecha;
     }
 
     public int getCantidad() {
         return cantidad;
+    }
+
+    public void setEstado(String estado) {
     }
 }

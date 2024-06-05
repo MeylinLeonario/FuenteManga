@@ -9,8 +9,8 @@ public interface Sistema {
     void valorarUnManga(String isbn);
     void visualizarComentarios(String isbn);
     void comprarUnManga(String isbn);
-    void registrarManga(Manga manga);
+    void registrarManga();
     void verUltimasCompras();
-    void actualizarEstadoDeCompra(int idCompra);
+    void actualizarEstadoDeCompra();
     void estadistica();
 }
