@@ -20,6 +20,7 @@ public class SistemaImpl implements Sistema {
     private List<Comment> commentsList = new ArrayList<>();
     private List<Comentario> miniCommentsList = new ArrayList<>();
     private List<MangaComprado> mangasComprados = new ArrayList<>();
+    private List<Usuario> usuariosDelMomento = new ArrayList<>();
 
     public void leerUsuario() {
 
@@ -325,12 +326,11 @@ public class SistemaImpl implements Sistema {
         leerManga();
         Out out = new Out("mangas.csv");
         out.println("ISBN;Nombre;Stock;Descripción;Precio");
-
         for (Manga m : mangasList) {
             out.println(m.getIsbn() + ";" + m.getNombre() + ";" + m.getStock() + ";" + m.getDescripcion() + ";" + m.getPrecio());
         }
         out.close();
-
+        //posicion len(mangaList) -1
     }
 
     public void mangaExiste(Manga manga) {
@@ -468,7 +468,9 @@ public class SistemaImpl implements Sistema {
         System.out.print("Comentario: ");
         String comentario = scanner.nextLine();
         while (true){
-           /* if (comentario.length() )*/
+           if (comentario.length() == 1){
+               break;
+           }
         }
     }
 
@@ -491,7 +493,7 @@ public class SistemaImpl implements Sistema {
         for (Manga manga : mangasList) {
             if (manga.getIsbn().equals(isbn)) {
                 found = true;
-                continuationCM(isbn);
+                continuationCM(isbn, manga);
                 savingMC();
 
             }
@@ -501,25 +503,22 @@ public class SistemaImpl implements Sistema {
         }
     }
 
-    public void continuationCM(String isbn){
+    public void continuationCM(String isbn, Manga manga){
         System.out.print("Ingresa la cantidad de productos: ");
         String quantity = scanner.nextLine();
+        int id = comprasList.size()+1;
+
         System.out.print("Ingrese el método de pago (Débito/Crédito/Efectivo): ");
         String paymentMethod = scanner.nextLine();
-        MangaComprado mangaComprado = new MangaComprado(isbn,Integer.parseInt(quantity),paymentMethod);
-        mangasComprados.add(mangaComprado);
+
+        mangasComprados.add();
     }
 
     public void savingMC(){
-        Out out = new Out("MangasComprados.csv");
-        for (MangaComprado mangasComprado : mangasComprados) {
-            for (Manga manga : mangasList) {
-                if (manga.getIsbn().equals(mangasComprado.getIsbn())) {
-                    System.out.println("[" + manga.getNombre() + "]: " + mangasComprado.getIsbn() + " -> " + mangasComprado.getCantidad());
-                    String mangaInText = manga.getNombre() + ";" + mangasComprado.getIsbn() + ";" + mangasComprado.getCantidad();
-                    out.println(mangaInText);
-                }
-            }
+        Out out = new Out("compras.csv");
+
+        for (int i = 0; i < comprasList.size(); i++){
+            
         }
     }
 }
