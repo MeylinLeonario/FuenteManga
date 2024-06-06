@@ -2,6 +2,7 @@ package cl.ucn.disc.poo.fuentemanga.Sistema;
 
 import cl.ucn.disc.poo.fuentemanga.Clases.*;
 
+import java.io.FileWriter;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -315,10 +316,23 @@ public class SistemaImpl implements Sistema {
         Manga manga= new Manga(codigoManga, nombreManga, cantidadMangas, descripcionManga, precioManga);
         mangaExiste(manga);
         mangasList.add(manga);
+        guardarRegistro(manga);
 
 
 
     }
+    public void guardarRegistro(Manga manga){
+        leerManga();
+        Out out = new Out("mangas.csv");
+        out.println("ISBN;Nombre;Stock;Descripción;Precio");
+
+        for (Manga m : mangasList) {
+            out.println(m.getIsbn() + ";" + m.getNombre() + ";" + m.getStock() + ";" + m.getDescripcion() + ";" + m.getPrecio());
+        }
+        out.close();
+
+    }
+
     public void mangaExiste(Manga manga) {
         for (Manga mg : mangasList) {
             if (mg.getIsbn().equals(manga.getIsbn())) {
@@ -376,6 +390,7 @@ public class SistemaImpl implements Sistema {
 
     @Override
     public void estadistica() {
+
 
     }
 
@@ -453,7 +468,7 @@ public class SistemaImpl implements Sistema {
         System.out.print("Comentario: ");
         String comentario = scanner.nextLine();
         while (true){
-            if (comentario.length() )
+           /* if (comentario.length() )*/
         }
     }
 
