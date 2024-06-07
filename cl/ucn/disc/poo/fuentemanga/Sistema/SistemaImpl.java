@@ -254,10 +254,10 @@ public class SistemaImpl implements Sistema {
                             productosComprados();
                             break;
                         case "3":
-                            //valorarUnManga();
+                            isbnisbn();
                             break;
                         case "4":
-                            //visualizarComentarios();
+                            visualize();
                             break;
                         case "5":
                             gettingAnISBN();
@@ -447,6 +447,12 @@ public class SistemaImpl implements Sistema {
     }
 
     //SECCION "VALORAR UN MANGA"
+
+    public void isbnisbn(){
+        System.out.print("Ingrese un ISBN: ");
+        String isbn = scanner.nextLine();
+        valorarUnManga(isbn);
+    }
     @Override
     public void valorarUnManga(String isbn) {
         System.out.print("ISBN del manga a valorar: ");
@@ -471,8 +477,28 @@ public class SistemaImpl implements Sistema {
         }
     }
 
+    public void visualize(){
+        System.out.println("Ingrese un ISBN: ");
+        String isbn = scanner.nextLine();
+
+        visualizarComentarios(isbn);
+    }
     @Override
     public void visualizarComentarios(String isbn) {
+        for (int i = 0; i < commentsList.size(); i++) {
+            if (commentsList.get(i).getIsbn().equals(isbn)) {
+                double rating = 0;
+                double suma = 0;
+                Comentario[] comentario = commentsList.get(i).getSubComentarios();
+                for (int j = 0; j < comentario.length; j++) {
+                    System.out.println(comentario[j].getComentario());
+                    rating += comentario[j].getRating();
+                    suma++;
+                }
+                System.out.println("Rating: " + rating/suma);
+
+            }
+        }
 
     }
 
