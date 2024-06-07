@@ -1,0 +1,78 @@
+@startuml
+
+skin rose
+
+class Usuario{
+    - rol: Rol
+    - username: String
+    - id: int
+    - password: String
+    +Usuario(rol: Rol, username: String, id: int, password String)
+    +getRol(): Rol
+    +getUsername(): String
+    +getId(): int
+    +getPassword(): String
+}
+
+class Administrador{
+    - AdministradorId: String
+    + Administrador(rol: Rol, username: String, id: int, password: String,administradorId: String)
+    + getAdministradorId(): String
+}
+
+class Comment{
+    - isbn: String
+    - cantidadComentarios: int
+    - subComentarios: Comentario[]
+    + Comment(isbn: String,cantidadComentarios: int, subComentarios: Comentario[])
+    + getIsbn(): String
+    + getCantidad_comentarios(): int
+    + getComentarios(): int
+    + getSubComentarios(): Comentario[]
+}
+
+class Comentario{
+    - comment: String
+    - rating: double
+    + Comentario(comment: String, rating: double)
+    + getComentario(): String
+    + getRating(): double
+}
+
+enum Rol{
+    ADMINISTRADOR
+    USUARIO
+}
+
+class Manga{
+    - isbn: String
+    - nombre: String
+    - stock: int
+    - descripcion: String
+    - precio: int
+    + Manga(isbn: String, nombre: String, stock: int, descripcion: String, precio: int)
+    + getIsbn(): String
+    + getNombre(): int
+    + getStock(): int
+    + getDescripcion(): String
+    + getPrecio(): int
+}
+
+class Compra{
+    - id: int
+    - isbn: String
+    - usernameId: int
+    - estado: String
+    - fecha: String
+    - cantidad: int
+
+    + Compra(id: int, isbn: String, usernameId: int, estado: String, fecha: String, cantidad: int): void
+    + getId(): int
+    + getIsbn(): String
+    + getUsernameId(): int
+    + getEstado(): String
+    + getFecha(): String
+    + getCantidad(): int
+    + setEstado(estado: String): void
+}
+@enduml
