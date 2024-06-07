@@ -20,7 +20,7 @@ public class SistemaImpl implements Sistema {
     private List<Comment> commentsList = new ArrayList<>();
     private List<Comentario> miniCommentsList = new ArrayList<>();
     private List<MangaComprado> mangasComprados = new ArrayList<>();
-    private List<Usuario> usuariosDelMomento = new ArrayList<>();
+    private List<Usuario> usuarioMomentaneo = new ArrayList<>();
 
     public void leerUsuario() {
 
@@ -196,6 +196,7 @@ public class SistemaImpl implements Sistema {
                 if (nombreUsuario.equals(usuariosList.get(i).getUsername())) {
                     if ((usuariosList.get(i).getPassword()).equals(contrasenia)) {
                         System.out.println("Ingreso exitoso.");
+                        usuarioMomentaneo.add(usuariosList.get(i));
                         return;
                     }
                 }
@@ -371,7 +372,7 @@ public class SistemaImpl implements Sistema {
                    compra.setEstado("Enviando a domicilio");
                    break;
                 } else if(compra.getEstado().equals("Enviando a domicilio")){
-                   compra.setEstado("Resivido");
+                   compra.setEstado("Recibido");
                    break;
                 } else if(compra.getEstado().equals("Resivido")){
                    compra.setEstado("El pedido ya a sido resivido");
@@ -440,12 +441,8 @@ public class SistemaImpl implements Sistema {
     //SECCION PRODUCTOS COMPRADOS
     @Override
     public void productosComprados() {
-        for (MangaComprado mangasComprado : mangasComprados) {
-            for (Manga manga : mangasList) {
-                if (manga.getIsbn().equals(mangasComprado.getIsbn())) {
-                    System.out.println("[" + manga.getNombre() + "]: " + mangasComprado.getIsbn() + " -> " + mangasComprado.getCantidad());
-                }
-            }
+        for (Compra compra : comprasList){
+            System.out.println("[" + compra.getId() + "," + compra.getIsbn()+ "," + compra.getUsernameId()+ "," + compra.getEstado()+ "," + compra.getFecha()+ "," + compra.getCantidad() + "]");
         }
     }
 
@@ -506,19 +503,20 @@ public class SistemaImpl implements Sistema {
     public void continuationCM(String isbn, Manga manga){
         System.out.print("Ingresa la cantidad de productos: ");
         String quantity = scanner.nextLine();
-        int id = comprasList.size()+1;
-
+        int newId = comprasList.size()+1;
+        int usernameId = usuarioMomentaneo.getFirst().getId();
         System.out.print("Ingrese el método de pago (Débito/Crédito/Efectivo): ");
         String paymentMethod = scanner.nextLine();
 
-        mangasComprados.add();
+        Compra compra = new Compra(newId, isbn, usernameId,("OBTENIENDO_PRODUCTO"), "06/06/2024", Integer.parseInt(quantity));
+        comprasList.add(compra);
     }
 
     public void savingMC(){
         Out out = new Out("compras.csv");
-
-        for (int i = 0; i < comprasList.size(); i++){
-            
+        out.println("id,isbn,id,estado,fecha,cantidad");
+        for (Compra compra : comprasList) {
+            out.println(compra.getId() + "," + compra.getIsbn()+ "," + compra.getUsernameId()+ "," + compra.getEstado()+ "," + compra.getFecha()+ "," + compra.getCantidad());
         }
     }
 }

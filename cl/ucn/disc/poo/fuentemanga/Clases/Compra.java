@@ -40,5 +40,8 @@ public class Compra {
     }
 
     public void setEstado(String estado) {
+        this.estado = estado;
     }
+
+
 }
