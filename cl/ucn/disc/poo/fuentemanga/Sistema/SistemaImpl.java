@@ -260,6 +260,9 @@ public class SistemaImpl implements Sistema {
                             break;
                         case "5":
                             gettingAnISBN();
+                        case "6":
+                            System.out.println("Ciao!");
+                            return;
                     }
                 }
 
@@ -461,6 +464,9 @@ public class SistemaImpl implements Sistema {
                 continuationVM(newISBN);
             }
 
+        }
+        if (!found){
+            System.out.println("ISBN no fue encontrado.");
         }
     }
 
