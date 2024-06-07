@@ -19,7 +19,6 @@ public class SistemaImpl implements Sistema {
     private List<Compra> comprasList = new ArrayList<>();
     private List<Comment> commentsList = new ArrayList<>();
     private List<Comentario> miniCommentsList = new ArrayList<>();
-    private List<MangaComprado> mangasComprados = new ArrayList<>();
     private List<Usuario> usuarioMomentaneo = new ArrayList<>();
 
     public void leerUsuario() {
@@ -458,8 +457,8 @@ public class SistemaImpl implements Sistema {
         System.out.print("ISBN del manga a valorar: ");
         String newISBN = scanner.nextLine();
         boolean found = false;
-        for (MangaComprado mangaComprado : mangasComprados) {
-            if (mangaComprado.getIsbn().equals(newISBN)) {
+        for (Compra compra: comprasList) {
+            if (compra.getIsbn().equals(newISBN)) {
                 found = true;
                 continuationVM(newISBN);
             }
