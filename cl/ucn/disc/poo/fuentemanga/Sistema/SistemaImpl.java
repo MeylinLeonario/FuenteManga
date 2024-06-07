@@ -236,7 +236,8 @@ public class SistemaImpl implements Sistema {
                         case 4:
                             //Estadisticas
                         case 5:
-                            //salir
+                            System.out.println("Adios!");
+                            return;
                     }
                 }
 
