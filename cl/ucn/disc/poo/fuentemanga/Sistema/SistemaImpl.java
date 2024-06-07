@@ -10,9 +10,12 @@ import edu.princeton.cs.stdlib.In;
 import edu.princeton.cs.stdlib.Out;
 import edu.princeton.cs.stdlib.StdOut;
 import org.w3c.dom.ls.LSOutput;
-
+/**
+ * Implementación concreta de la interfaz Sistema.
+ */
 public class SistemaImpl implements Sistema {
     Scanner scanner = new Scanner(System.in);
+    // Listas para almacenar distintos tipos de objetos
     private List<Administrador> adminsList = new ArrayList<>();
     private List<Manga> mangasList = new ArrayList<>();
     private List<Usuario> usuariosList = new ArrayList<>();
@@ -20,7 +23,9 @@ public class SistemaImpl implements Sistema {
     private List<Comment> commentsList = new ArrayList<>();
     private List<Comentario> miniCommentsList = new ArrayList<>();
     private List<Usuario> usuarioMomentaneo = new ArrayList<>();
-
+    /**
+     * Lee los datos de los usuarios desde un archivo CSV y los almacena en las listas correspondientes.
+     */
     public void leerUsuario() {
 
         Usuario[] usuarios = new Usuario[6];

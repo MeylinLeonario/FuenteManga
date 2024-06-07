@@ -1,7 +1,10 @@
 @startuml
 
 skin rose
-
+set separator none
+left to right direction
+package cl.ucn.disc.poo.fuentemanga{
+  package Clases{
 class Usuario{
     - rol: Rol
     - username: String
@@ -75,4 +78,30 @@ class Compra{
     + getCantidad(): int
     + setEstado(estado: String): void
 }
+Usuario -----|> Rol
+
+Administrador -----|> Usuario
+Comentario -----|> Comment
+Comment -----|> Comentario
+Manga -----|> Compra
+Compra -----|> Usuario
+}
+package Sistema{
+
+   class SistemaImpl{
+   + sistemaImpl(): sistemaImpl
+   }
+   interface sistema {
+    busquedaManga(titulo: String):
+    productosComprados():
+    valorarUnManga(isbn: String):
+    visualizarComentarios(isbn: String):
+    comprarUnManga(isbn: String):
+    registrarManga():
+    verUltimasCompras():
+    actualizarEstadoDeCompra():
+    estadistica():
+}
+sistema"1" <|..."1"SistemaImpl
+SistemaImpl --|> Usuario
 @enduml

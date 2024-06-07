@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+skin rose
+set separator none
+left to right direction
+entity Administrador{
+     AdministradorId
+}
+entity Comentario{
+     comment
+     rating
+}
+entity Comment{
+    isbn:
+    cantidadComentarios
+    subComentarios
+}
+entity Compra{}
+entity Manga{
+}
+enum Rol{
+    ADMINISTRADOR
+    USUARIO
+
+}
+entity Usuario{
+   rol
+   username
+   id
+}
+Administrador --> Usuario
+Usuario --> Rol
+Comment --> Comentario
+Manga --> Compra
+Manga --> Comentario
+Usuario --> Manga
+
+@enduml
