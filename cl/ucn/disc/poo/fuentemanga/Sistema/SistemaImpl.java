@@ -260,7 +260,10 @@ public class SistemaImpl implements Sistema {
                             break;
                         case "5":
                             gettingAnISBN();
+                        case "6":
+                            return;
                     }
+
                 }
 
         }
@@ -323,14 +326,12 @@ public class SistemaImpl implements Sistema {
 
     }
     public void guardarRegistro(Manga manga){
-        leerManga();
         Out out = new Out("mangas.csv");
         out.println("ISBN;Nombre;Stock;Descripción;Precio");
         for (Manga m : mangasList) {
             out.println(m.getIsbn() + ";" + m.getNombre() + ";" + m.getStock() + ";" + m.getDescripcion() + ";" + m.getPrecio());
         }
         out.close();
-        //posicion len(mangaList) -1
     }
 
     public void mangaExiste(Manga manga) {
@@ -543,5 +544,7 @@ public class SistemaImpl implements Sistema {
         for (Compra compra : comprasList) {
             out.println(compra.getId() + "," + compra.getIsbn()+ "," + compra.getUsernameId()+ "," + compra.getEstado()+ "," + compra.getFecha()+ "," + compra.getCantidad());
         }
+        out.close();
+
     }
 }
